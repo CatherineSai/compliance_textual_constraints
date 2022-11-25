@@ -1,0 +1,32 @@
+from os.path import join
+from pathlib import Path
+
+# Directories
+PROJECT_DIRECTORY = Path(__file__).parents[1]
+SRC_DIRECTORY = join(PROJECT_DIRECTORY, "src")
+INPUT_DIRECTORY = join(PROJECT_DIRECTORY, "input")
+RESULT_DIRECTORY = join(PROJECT_DIRECTORY, "results")
+CLASS_DIRECTORY = join(SRC_DIRECTORY, "classes")
+INTERMEDIATE_DIRECTORY = join(SRC_DIRECTORY, "intermediate_results")
+WORD_LIST_DIRECTORY = join(INPUT_DIRECTORY, "defined_word_lists")
+GDPR_REALIZATION_INPUT_DIRECTORY = join(INPUT_DIRECTORY, "gdpr_realization_documents")
+GDPR_REGULATION_INPUT_DIRECTORY = join(INPUT_DIRECTORY, "gdpr_regulatory_documents")
+ISO_REALIZATION_INPUT_DIRECTORY = join(INPUT_DIRECTORY, "iso_realization_documents")
+ISO_REGULATION_INPUT_DIRECTORY = join(INPUT_DIRECTORY, "iso_regulatory_documents")
+GDPR_REA_SPEZIFICATION_DIRECTORY = join(WORD_LIST_DIRECTORY, "gdpr")
+ISO_REA_SPEZIFICATION_DIRECTORY = join(WORD_LIST_DIRECTORY, "iso")
+ISO_REA_SPEZIFICATION1 = join(ISO_REA_SPEZIFICATION_DIRECTORY, "rea_specification_information_security_management_system.txt")
+ISO_REA_SPEZIFICATION2 = join(ISO_REA_SPEZIFICATION_DIRECTORY, "rea_specification_top_management.txt")
+ISO_SIGNALWORDS = join(ISO_REA_SPEZIFICATION_DIRECTORY, "signalwords.txt")
+GDPR_REA_SPEZIFICATION1 = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "rea_specification_controller.txt")
+GDPR_REA_SPEZIFICATION2 = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "rea_specification_data_protection_officer.txt")
+GDPR_REA_SPEZIFICATION3 = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "rea_specification_management.txt")
+GDPR_STOPWORDS_RAKE = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "stopwords.txt")
+GDPR_SIGNALWORDS = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "signalwords.txt")
+GDPR_REG_TEST = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "test_reg.txt")
+GDPR_REA_TEST = join(GDPR_REA_SPEZIFICATION_DIRECTORY, "test_rea.txt")
+GS_STEP_ONE_INPUT_STEP_TWO = join(INTERMEDIATE_DIRECTORY, "prepared_gs_step_1_as_input_step_2")
+REA_GS_STEP_ONE_INPUT_STEP_TWO = join(GS_STEP_ONE_INPUT_STEP_TWO, "realization_document")
+REG_GS_STEP_ONE_INPUT_STEP_TWO = join(GS_STEP_ONE_INPUT_STEP_TWO, "regulatory_document")
+STEP_TWO_EXTRACTION_RESULTS = join(INTERMEDIATE_DIRECTORY, "step_2_extraction_results")
+STEP_TWO_SIMILARITY_RESULTS = join(INTERMEDIATE_DIRECTORY, "step_2_similarity_results")
