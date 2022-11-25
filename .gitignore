@@ -1,0 +1,11 @@
+.text2text_python38_venv/ 
+.text2text_python310_venv/ 
+.vscode/
+input/
+results/
+src/intermediate_results/
+src/__pycache__/
+src/classes/__pycache__/
+test_gs.ipynb
+test_keybertsentence_pairs.py
+test_tfidf.ipynb
