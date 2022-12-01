@@ -18,7 +18,7 @@ class S_Bert_Sentence_Pairs:
     embeddings1 = self.model.encode(sentence_list_reg, convert_to_tensor=True)
     embeddings2 = self.model.encode(sentence_list_rea, convert_to_tensor=True)
     #Compute cosine-similarits
-    cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
+    cosine_scores = util.cos_sim(embeddings1, embeddings2)
     #create df of best score results
     df_sent_pairs = pd.DataFrame(columns=['original_sentence_reg','original_sentence_rea','sbert_sim_score'])
   
@@ -31,7 +31,7 @@ class S_Bert_Sentence_Pairs:
                 best_fit = j
         df_sent_pairs.at[i, 'original_sentence_reg'] = sentence_list_reg[i]
         df_sent_pairs.at[i, 'original_sentence_rea'] = sentence_list_rea[best_fit]
-        df_sent_pairs.at[i, 'sbert_sim_score'] = highest_score
+        df_sent_pairs.at[i, 'sbert_sim_score'] = highest_score.item()
     df_sent_pairs = df_sent_pairs[df_sent_pairs['sbert_sim_score'] >= self.threshold]
     return df_sent_pairs
     '''

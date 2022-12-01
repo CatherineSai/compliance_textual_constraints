@@ -1,17 +1,13 @@
-
-from sentence_transformers import SentenceTransformer, util, models
+# using LEGAL BERT Model as basis NLI task (labeled data) and apply to sentence transformer
+import os
 import pandas as pd
 from file_paths import *
-
-# using LEGAL BERT Model as basis for sentence transformer
-word_embedding_model = models.Transformer('nlpaueb/bert-base-uncased-eurlex', max_seq_length=256)
-pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+from sentence_transformers import SentenceTransformer, util
 
 
 class Legal_S_Bert_Sentence_Pairs:
   def __init__(self, gamma):
-    self.model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
-    self.model.max_seq_length = 200
+    self.model = SentenceTransformer(LEGAL_SBERT_NLI_MODEL)
     self.threshold = gamma
 
   def get_bert_sim_sent_pairs(self, sentence_list_reg, sentence_list_rea):
@@ -21,9 +17,9 @@ class Legal_S_Bert_Sentence_Pairs:
     embeddings1 = self.model.encode(sentence_list_reg, convert_to_tensor=True)
     embeddings2 = self.model.encode(sentence_list_rea, convert_to_tensor=True)
     #Compute cosine-similarits
-    cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
+    cosine_scores = util.cos_sim(embeddings1, embeddings2)
     #create df of best score results
-    df_sent_pairs = pd.DataFrame(columns=['original_sentence_reg','original_sentence_rea','sbert_sim_score'])
+    df_sent_pairs = pd.DataFrame(columns=['original_sentence_reg','original_sentence_rea','legal_nli_sbert_sim_score'])
     for i in range(len(sentence_list_reg)):
         highest_score = 0
         for j in range(len(sentence_list_rea)):
@@ -32,8 +28,8 @@ class Legal_S_Bert_Sentence_Pairs:
                 best_fit = j
         df_sent_pairs.at[i, 'original_sentence_reg'] = sentence_list_reg[i]
         df_sent_pairs.at[i, 'original_sentence_rea'] = sentence_list_rea[best_fit]
-        df_sent_pairs.at[i, 'sbert_sim_score'] = highest_score
-    df_sent_pairs = df_sent_pairs[df_sent_pairs['sbert_sim_score'] >= self.threshold]
+        df_sent_pairs.at[i, 'legal_nli_sbert_sim_score'] = highest_score.item()
+    df_sent_pairs = df_sent_pairs[df_sent_pairs['legal_nli_sbert_sim_score'] >= self.threshold]
     return df_sent_pairs
     
   def get_unmapped_reg_sentences(self, df_sent_pairs, sentence_list_reg):
